@@ -141,15 +141,17 @@ export function injectPositive(values: number[]): number[] {
     let result: number[] = values.reduce((acc, num) => {
         if (num < 0 && !inserted) {
             inserted = true;
-            return acc.concat(num, sum);
+            let new1: number[] = [...acc, num, sum];
+            return new1;
         } else {
             sum += num;
-            return acc.concat(num);
+            let new1: number[] = [...acc, num];
+            return new1;
         }
-    }, []);
+    }, [] as number[]);
 
-    if (!inserted) {
-        result = result.concat(sum);
+    if (values.every((v) => v >= 0)) {
+        result = [...result, sum];
     }
 
     return result;
